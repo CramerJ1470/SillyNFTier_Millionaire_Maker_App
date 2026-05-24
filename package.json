@@ -1,0 +1,15 @@
+{
+  "name": "millionaireapp",
+  "version": "1.0.0",
+  "description": "Autonomous Schwab Trading Engine",
+  "main": "server.js",
+  "scripts": {
+    "backend": "cd backend && npm run dev",
+    "frontend": "cd frontend && npm start",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
