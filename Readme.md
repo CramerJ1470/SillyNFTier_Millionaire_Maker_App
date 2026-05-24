@@ -79,5 +79,106 @@ Ensure your local runtime environment meets or exceeds the baseline structural r
 
 ### 2.1 Clone the Repository
 Open your terminal and pull the master branch down to your workspace:
-```bash
+
 git clone [https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git](https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git)
+
+### 2.2 Navigate to Backend Root
+Move directly into the directory where the backend application configurations sit:
+
+cd SillyNFTier_Millionaire_Maker_App/backend
+
+### 2.2 Navigate to Backend Root
+Move directly into the directory where the backend application configurations sit:
+
+    cd SillyNFTier_Millionaire_Maker_App/backend
+
+### 2.3 Install Dependencies
+Securely deploy native dependency packages listed in the package manifest:
+
+    npm install
+
+---
+
+## ⚙️ Step 3: Configuration & Environment Setup
+
+### 3.1 Create the Environment File
+Instantiate a production environment profile named `.env` directly within your root backend directory to isolate runtime variables securely:
+
+    touch .env
+
+### 3.2 Populate App Environment Parameters
+Open the newly created `.env` file in your preferred system text editor (`nano`, `vim`, or VS Code) and add the following configuration block. Ensure you substitute the placeholder strings with the actual keys retrieved from your approved application inside the Charles Schwab Developer Portal dashboard:
+
+    # System Runtime Modes
+    PORT=8080
+    NODE_ENV=production
+
+    # Charles Schwab API Integrations
+    SCHWAB_CLIENT_ID=your_schwab_developer_client_id_here
+    SCHWAB_CLIENT_SECRET=your_schwab_developer_client_secret_here
+    SCHWAB_CALLBACK_URL=[https://127.0.0.1](https://127.0.0.1)
+
+    # Session & Crypto Encryption Passphrases
+    SESSION_SECRET=9be3f210d7a041f6e248b1113c49e29a9b70cfc24d1736a
+
+### 3.3 Verify Local Inclusions Exclusion (.gitignore)
+To safeguard production authentication pipelines from exposure hazards, confirm your `.gitignore` configuration effectively excludes localized sensitive data files. Your system should automatically catch:
+
+    .env
+    *state.json
+    node_modules/
+
+> ⚠️ **CRITICAL SECURITY NOTE:** Never commit your production `.env` configuration template or localized validation files (`*state.json`) to public Git nodes. These are automatically blocked under the local workspace `.gitignore`.
+
+---
+
+## 🚀 Step 4: Production Deployment Guide
+
+Follow this standardized workflow sequence to push the application live onto continuous Linux compute infrastructure (such as Ubuntu 22.04 LTS or Debian cloud environments).
+
+![Server Rack Data Center](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)
+
+### 4.1 Update System Frameworks & Deploy Dependencies
+Log into your target cloud server instance via SSH and ensure all basic build dependencies and system repositories are explicitly up to date:
+
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install build-essential libssl-dev -y
+
+### 4.2 Initialize Runtime Engine (PM2 Node Process Supervisor)
+Install PM2 globally. This daemon continuously supervises your server's application instance execution health, handles automatic cluster thread reboots if memory heaps crash, and buffers standard out streams.
+
+    sudo npm install pm2 -g
+
+### 4.3 Trigger Production Node App Boot Sequence
+Launch your backend process using the PM2 manager while passing explicit process names to make service tracking easy:
+
+    pm2 start server.js --name "sillynftier-backend"
+
+### 4.4 Configure Host Linux Daemon Recovery Ingestion
+To ensure the backend service survives hard infrastructure server resets or physical kernel system reboots, map the execution profile straight into your Linux system startup system paths:
+
+    pm2 startup
+    pm2 save
+
+### 4.5 Production Status Telemetry Auditing
+Inspect process performance variables and parse live terminal stream events using the built-in system managers:
+
+    # View active CPU and memory profiles for running threads
+    pm2 status
+
+    # Access live, real-time logging buffers for order routing verification
+    pm2 logs sillynftier-backend
+
+---
+
+## 📁 Repository Structure
+
+An overview of how the architectural codebase layout maps structural duties across files:
+
+    backend/
+    ├── models/          # Structural data validation schemas
+    ├── services/        # Third-party execution engines and Schwab API clients
+    ├── workers/         # Dedicated event loops for real-time background tasks
+    ├── .gitignore       # System exclusions configuration map
+    ├── package.json     # Node manifests and module trees
+    └── server.js        # Core cluster instantiation entry point
