@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![API Provider: Charles Schwab](https://img.shields.io/badge/API-Schwab%20Developer-blue)](https://developer.schwab.com/)
 
-An automated algorithmic trading framework that connects speculative digital asset strategies with institutional retail equity markets. Powered by a robust Node.js backend cluster and real-time execution pipelines via the Charles Schwab Trader API.
+An automated algorithmic trading framework that bridges speculative digital asset strategies with institutional retail equity markets. Powered by a highly optimized Node.js backend cluster and real-time execution pipelines via the Charles Schwab Trader API.
 
 ![Financial Market Dashboard](https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=1200&q=80)
 
@@ -13,10 +13,10 @@ An automated algorithmic trading framework that connects speculative digital ass
 ## 📌 Table of Contents
 1. [Core Features](#-core-features)
 2. [System Architecture](#-system-architecture)
-3. [Charles Schwab Developer Account Setup](#-charles-schwab-developer-account-setup)
-4. [Local Installation & Cloning](#-local-installation--cloning)
-5. [Configuration & Environment Variables](#-configuration--environment-variables)
-6. [Production Deployment Guide](#-production-deployment-guide)
+3. [Step 1: Charles Schwab Developer Account Setup](#-step-1-charles-schwab-developer-account-setup)
+4. [Step 2: Local Installation & Cloning](#-step-2-local-installation--cloning)
+5. [Step 3: Configuration & Environment Setup](#-step-3-configuration--environment-setup)
+6. [Step 4: Production Deployment Guide](#-step-4-production-deployment-guide)
 7. [Repository Structure](#-repository-structure)
 
 ---
@@ -42,21 +42,21 @@ The ecosystem splits heavy data aggregation and token synchronization away from 
 
 ---
 
-## 🔑 Charles Schwab Developer Account Setup
+## 🔑 Step 1: Charles Schwab Developer Account Setup
 
 To run live order execution or read real-time pricing telemetry, you must establish secure integration endpoints via the Schwab Developer Portal.
 
-### Step 1: Portal Registration
+### 1.1 Portal Registration
 1. Navigate to the [Charles Schwab Developer Portal](https://developer.schwab.com/).
 2. Click **Register** and create your developer profile credentials.
-3. Validate your email using the verification link provided.
+3. Validate your email using the verification link sent to your inbox.
 
-### Step 2: Establish Your Developer Role
+### 1.2 Establish Your Developer Role
 1. Log into the Dev Portal and access your profile dashboard.
 2. Locate the **Individual Developer** option card and select **Continue**.
 3. *Note: This links your developer profile to your retail Schwab Brokerage accounts to utilize Trader APIs.*
 
-### Step 3: Register an Application Link
+### 1.3 Register an Application Link
 1. Go to **Dashboard** -> **Apps** -> **Create App**.
 2. Define your application configurations using the matrix parameters below:
 
@@ -66,23 +66,18 @@ To run live order execution or read real-time pricing telemetry, you must establ
 | **Callback URL** | `https://127.0.0.1` *(Must be explicit HTTPS localhost or your verified server domain)* |
 | **API Product Subscription** | Select both **Accounts and Trading Production** & **Market Data Production** |
 
-3. Submit the registration form. Your application state will initially display as `Pending-Approved`. Once validated by system admins, status transforms to `Ready for Use`.
+3. Submit the registration form. Your application state will initially display as `Pending-Approved`. Once validated by system admins, the status transforms to `Ready for Use`.
 4. Open your approved App details and copy your confidential **Client ID** and **Client Secret**.
 
 ---
 
-## 💻 Local Installation & Cloning
+## 💻 Step 2: Local Installation & Cloning
 
-Ensure your local runtime environment meets or exceeds the baseline structural requirements:
+Ensure your local runtime environment meets or exceeds the baseline structural requirements before proceeding:
 * **Node.js:** v18.x.x or higher LTS
 * **npm:** v9.x.x or higher
 
+### 2.1 Clone the Repository
+Open your terminal and pull the master branch down to your workspace:
 ```bash
-# 1. Clone the master repository branch
 git clone [https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git](https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git)
-
-# 2. Navigate straight into your application backend root
-cd SillyNFTier_Millionaire_Maker_App/backend
-
-# 3. Securely deploy native dependency packages
-npm install
