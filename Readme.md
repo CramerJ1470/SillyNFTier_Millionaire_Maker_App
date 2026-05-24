@@ -18,6 +18,10 @@ An automated algorithmic trading framework that bridges speculative digital asse
 5. [Step 3: Configuration & Environment Setup](#-step-3-configuration--environment-setup)
 6. [Step 4: Production Deployment Guide](#-step-4-production-deployment-guide)
 7. [Repository Structure](#-repository-structure)
+8. [Production Security Protocols](#-production-security-protocols)
+9. [Testing Suite Execution](#-testing-suite-execution)
+10. [Monitoring, Logging & Error Handling](#-monitoring-logging--error-handling)
+11. [Contributing Guidelines](#-contributing-guidelines)
 
 ---
 
@@ -80,12 +84,7 @@ Ensure your local runtime environment meets or exceeds the baseline structural r
 ### 2.1 Clone the Repository
 Open your terminal and pull the master branch down to your workspace:
 
-git clone [https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git](https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git)
-
-### 2.2 Navigate to Backend Root
-Move directly into the directory where the backend application configurations sit:
-
-cd SillyNFTier_Millionaire_Maker_App/backend
+    git clone https://github.com/CramerJ1470/SillyNFTier_Millionaire_Maker_App.git
 
 ### 2.2 Navigate to Backend Root
 Move directly into the directory where the backend application configurations sit:
@@ -116,7 +115,7 @@ Open the newly created `.env` file in your preferred system text editor (`nano`,
     # Charles Schwab API Integrations
     SCHWAB_CLIENT_ID=your_schwab_developer_client_id_here
     SCHWAB_CLIENT_SECRET=your_schwab_developer_client_secret_here
-    SCHWAB_CALLBACK_URL=[https://127.0.0.1](https://127.0.0.1)
+    SCHWAB_CALLBACK_URL=https://127.0.0.1
 
     # Session & Crypto Encryption Passphrases
     SESSION_SECRET=9be3f210d7a041f6e248b1113c49e29a9b70cfc24d1736a
@@ -182,3 +181,74 @@ An overview of how the architectural codebase layout maps structural duties acro
     ├── .gitignore       # System exclusions configuration map
     ├── package.json     # Node manifests and module trees
     └── server.js        # Core cluster instantiation entry point
+
+---
+
+## 🔒 Production Security Protocols
+
+When deploying an automated trading script with direct brokerage access, you must enforce strict infrastructure security boundaries:
+
+### 1. Secret Management (Do Not Hardcode)
+* **Zero-Leak Policy:** Under no circumstances should your `SCHWAB_CLIENT_SECRET` or app tokens be written inside your codebase. 
+* **Environment Isolation:** Use a production secret manager (like AWS Secrets Manager, HashiCorp Vault, or encrypted environment spaces) rather than leaving plain-text `.env` files on an open server.
+
+### 2. Linux Server Hardening
+If you are hosting this application on a cloud VPS (Ubuntu/Debian), execute these foundational baseline security steps immediately:
+* **Disable Root SSH Logging:** Force authentication through a dedicated, non-root user account utilizing SSH Keys. Disable password authentication entirely in `/etc/ssh/sshd_config`.
+* **Configure Uncomplicated Firewall (UFW):** Drop all inbound packets except explicit tracking nodes and your remote access port:
+
+    sudo ufw default deny incoming
+    sudo ufw default allow outgoing
+    sudo ufw allow ssh
+    sudo ufw allow 8080/tcp
+    sudo ufw enable
+
+### 3. Rate Limiting & API Throttling
+* Charles Schwab endpoints enforce strict transactional rate limits. Ensure your internal loops utilize a sliding-window queue or token bucket algorithm to prevent hard HTTP `429 Too Many Requests` bans, which can freeze active positions mid-execution.
+
+---
+
+## 🧪 Testing Suite Execution
+
+A serious financial framework requires high testing coverage before touching live capital.
+
+### Local Mock Testing
+This project utilizes **Jest** alongside **Supertest** to mock active brokerage data feeds without hitting the live Schwab endpoints.
+
+    # Run the complete end-to-end integration test suite
+    npm test
+
+    # Run tests with active coverage reports
+    npm run test:coverage
+
+Make sure your test configurations validate:
+1. **Token Refresh Failures:** The app gracefully holds execution if the Schwab API fails to rotate keys.
+2. **Order Slippage Faults:** The calculation engine rejects trades if the spread between Ask/Bid is too wide.
+
+---
+
+## 📈 Monitoring, Logging & Error Handling
+
+When code errors equal actual financial losses, simple `console.log` statements are not enough.
+
+### Structured Logging
+The backend uses **Winston** to generate structured JSON logs. This allows logs to be easily parsed by log aggregators (like Datadog, ELK stack, or Logtail). 
+
+Logs are systematically split into two separate local streams:
+* `logs/combined.log`: Captures system telemetry, order entries, and heartbeat logs.
+* `logs/error.log`: Captures network drops, database faults, and rejected execution triggers.
+
+### Critical Failure Notification Loop
+Inside `services/errorNotifier.js`, configure a webhook to broadcast critical runtime alerts directly to your personal Discord server or Slack channel if a production worker loop crashes:
+
+    // Example webhook trigger within the application core
+    const alertWebhook = process.env.DISCORD_WEBHOOK_URL; 
+
+---
+
+## 🤝 Contributing Guidelines
+
+If you want others to collaborate or review your code:
+1. **Fork the Repository** and create your branch (`feature/AmazingFeature`).
+2. **Commit with Conventional Messages** (e.g., `feat: add order queue throttling`, `fix: token refresh math`).
+3. **Submit a Pull Request** targeting the `master` branch for code review.
