@@ -41,7 +41,7 @@ async function monitorAndExecute() {
         console.log(`[TARGET HIT] Executing 1-second high-freq ${trigger.type} order for ${trigger.symbol} at $${currentPrice}`);
         
         const orderPayload = {
-          orderType: "MARKET",
+          orderType: "LIMIT",
           session: "NORMAL",
           duration: "DAY",
           orderStrategyType: "SINGLE",

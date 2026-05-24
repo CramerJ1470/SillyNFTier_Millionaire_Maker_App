@@ -6,6 +6,17 @@ import { createTrigger ,getActiveTriggers, cancelTriggerByUser } from './models/
 import { getValidAccessToken } from './services/schwabAuth.js';
 import { startTradeEngine } from './workers/tradeEngine.js';
 
+// Example usage inside backend/server.js or backend/services/schwabClient.js
+const secrets = require('./secrets');
+
+console.log(`Initializing trading engine on port ${secrets.PORT}...`);
+
+// Pass these parameters straight into your Schwab API configuration
+const clientID = secrets.SCHWAB_CLIENT_ID;
+const clientSecret = secrets.SCHWAB_CLIENT_SECRET;
+const redirectUri = secrets.SCHWAB_CALLBACK_URL;
+
+
 const app = express();
 app.use(cors());
 app.use(express.json());

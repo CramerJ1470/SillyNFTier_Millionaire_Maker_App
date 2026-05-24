@@ -120,7 +120,24 @@ Open the newly created `.env` file in your preferred system text editor (`nano`,
     # Session & Crypto Encryption Passphrases
     SESSION_SECRET=9be3f210d7a041f6e248b1113c49e29a9b70cfc24d1736a
 
-### 3.3 Verify Local Inclusions Exclusion (.gitignore)
+### 3.3 Option 1: VS Code Integrated Terminal Setup (Temporary Session)
+If you prefer mapping your environment keys directly through your local VS Code terminal session instead of a plain-text profile, open your integrated terminal and run the commands matching your operating system before launching the app:
+
+#### For macOS / Linux (bash/zsh):
+    export MY_SCHWAB_KEY="your_actual_client_id_here"
+    export MY_SCHWAB_SECRET="your_actual_client_secret_here"
+    export MY_SCHWAB_URL="https://127.0.0.1"
+    node server.js
+
+#### For Windows (PowerShell):
+    $env:MY_SCHWAB_KEY="your_actual_client_id_here"
+    $env:MY_SCHWAB_SECRET="your_actual_client_secret_here"
+    $env:MY_SCHWAB_URL="https://127.0.0.1"
+    node server.js
+
+*Note: These variables will safely clear out of your memory pipelines the moment you close or kill that specific terminal tab.*
+
+### 3.4 Verify Local Inclusions Exclusion (.gitignore)
 To safeguard production authentication pipelines from exposure hazards, confirm your `.gitignore` configuration effectively excludes localized sensitive data files. Your system should automatically catch:
 
     .env
@@ -128,8 +145,6 @@ To safeguard production authentication pipelines from exposure hazards, confirm 
     node_modules/
 
 > ⚠️ **CRITICAL SECURITY NOTE:** Never commit your production `.env` configuration template or localized validation files (`*state.json`) to public Git nodes. These are automatically blocked under the local workspace `.gitignore`.
-
----
 
 ## 🚀 Step 4: Production Deployment Guide
 
