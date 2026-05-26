@@ -5,7 +5,8 @@ import axios from 'axios';
 import { createTrigger, getActiveTriggers, cancelTriggerByUser } from './models/TriggerModel.js';
 import { getValidAccessToken } from './services/schwabAuth.js';
 import { startTradeEngine } from './workers/tradeEngine.js';
-import secrets from './secrets.js';
+import secrets from "./secrets.js";
+
 
 console.log(`Initializing trading engine on port ${secrets.PORT}...`);
 
